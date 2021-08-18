@@ -7,7 +7,6 @@ jobs:
     steps:
       - name: setuup
         uses: actions/checkout@v2
-      - name: run-step
   Test:
     needs: Clone-down
     run: ci/unit-test-app.sh

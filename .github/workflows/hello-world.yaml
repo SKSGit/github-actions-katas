@@ -51,6 +51,3 @@ jobs:
           path: .
       - run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
       - run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
-      - uses: docker/push-action@v2
-        with:
-          tags: my-org/my-image:latest

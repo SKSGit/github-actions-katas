@@ -3,53 +3,54 @@ env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
 name: Java CI
-on: push
-  jobs:
-    Clone-down:
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      steps:
-        - name: setup
-          uses: actions/checkout@v2
-        - uses: actions/upload-artifact@v2
-          with:
-            name: code
-            path: .
-    Test:
-      needs: Clone-down
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      steps:
+on: 
+  push:
+    jobs:
+      Clone-down:
+        runs-on: ubuntu-latest
+        container: gradle:6-jdk11
+        steps:
+          - name: setup
+            uses: actions/checkout@v2
+          - uses: actions/upload-artifact@v2
+            with:
+              name: code
+              path: .
+      Test:
+        needs: Clone-down
+        runs-on: ubuntu-latest
+        container: gradle:6-jdk11
+        steps:
+          - uses: actions/download-artifact@v2
+            with:
+              name: code
+              path: .
+          - name: test
+            run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+          
+      Build:
+        needs: Clone-down
+        runs-on: ubuntu-latest
+        container: gradle:6-jdk11
+        steps:
         - uses: actions/download-artifact@v2
           with:
             name: code
             path: .
-        - name: test
-          run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-        
-    Build:
-      needs: Clone-down
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
-      - name: builder
-        run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: uploader 
-        uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: .
-    Docker-image:
-      needs: [Test, Build]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/download-artifact@v2
+        - name: builder
+          run: chmod +x ci/build-app.sh && ci/build-app.sh
+        - name: uploader 
+          uses: actions/upload-artifact@v2
           with:
             name: code
             path: .
-        - run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
-        - run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
+      Docker-image:
+        needs: [Test, Build]
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/download-artifact@v2
+            with:
+              name: code
+              path: .
+          - run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
+          - run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh

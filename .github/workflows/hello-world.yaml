@@ -4,14 +4,16 @@ jobs:
   Clone-down:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
-    name: setup
-    uses: actions/checkout@v2
+    -steps:
+      name: setup
+      uses: actions/checkout@v2
   Test:
     needs: Clone-down
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
-    name: test
-    run: ci/unit-test-app.sh
+    steps:
+      - name: test
+        run: ci/unit-test-app.sh
   Build:
     needs: Clone-down
     runs-on: ubuntu-latest

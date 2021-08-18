@@ -13,10 +13,8 @@ jobs:
   Build:
     needs: Clone-down
     steps:
-      - name: build
-        run: ci/build-app.sh
-      - name: upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: .
+      run: ci/build-app.sh
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .

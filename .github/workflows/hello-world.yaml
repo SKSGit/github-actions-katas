@@ -62,5 +62,6 @@ jobs:
         with:
           name: code
           path: .
+      - run: chmod +x /usr/local/bin/docker-compose
       - run: docker-compose --version
       - run: chmod +x ci/component-test.sh && ci/component-test.sh

@@ -8,4 +8,4 @@ jobs:
       - name: uses-step
         uses: actions/checkout@v2
       - name: run-step
-        run: ../../ci/build-app.sh
+        run: ci/build-app.sh

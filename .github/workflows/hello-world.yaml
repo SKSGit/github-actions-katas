@@ -13,9 +13,11 @@ jobs:
     run: ci/unit-test-app.sh
   Build:
     needs: Clone-down
-    run: ci/build-app.sh
-    - name: Upload Repo
-      uses: actions/upload-artifact@v2
-      with:
-        name: code
-        path: .
+    steps:
+      - name: build
+        run: ci/build-app.sh
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .

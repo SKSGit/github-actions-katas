@@ -1,4 +1,4 @@
-name: Java CI
+name: workflow
 on: push
 jobs:
   Clone-down:

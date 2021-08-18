@@ -58,4 +58,4 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - run: ci/component-test.sh
+      - run: chmod +x ci/build-docker.sh && ci/component-test.sh

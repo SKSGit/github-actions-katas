@@ -1,10 +1,10 @@
-name: workflow
+name: Java CI
 on: push
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
-    name: setuup
+    name: setup
     uses: actions/checkout@v2
   Test:
     needs: Clone-down

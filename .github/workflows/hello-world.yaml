@@ -18,6 +18,6 @@ jobs:
         run: ci/build-app.sh
       - name: upload
         uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: .
+          with:
+            name: code
+            path: .

@@ -21,7 +21,7 @@ jobs:
           name: code
           path: .
       - name: test
-        run: ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       
   Build:
     needs: Clone-down
@@ -33,7 +33,7 @@ jobs:
         name: code
         path: .
     - name: builder
-      run: ci/build-app.sh
+      run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: uploader 
       uses: actions/upload-artifact@v2
       with:

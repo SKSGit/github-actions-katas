@@ -8,5 +8,5 @@ jobs:
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
-          name: Upload Repo
+          name: code
           path: .

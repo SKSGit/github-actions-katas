@@ -6,7 +6,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Upload Repo
-        uses: code
+        uses: actions/upload-artifact@v2
         with:
           name: Upload Repo
           path: .
